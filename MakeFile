@@ -1,0 +1,24 @@
+# Variables
+CXX = g++
+CXXFLAGS = -Wall -std=c++17
+
+# Automatically find ALL .cpp files and make matching .exe names
+SRCS = $(wildcard *.cpp)
+TARGETS = $(SRCS:.cpp=.exe)
+
+# Default task: build every program found in the folder
+all: $(TARGETS)
+
+# Build and run any program, for example: make run-hello_world
+run-%: %.exe
+	./$<
+
+# Rule to turn any individual .cpp file straight into its own matching .exe
+%.exe: %.cpp
+	$(CXX) $(CXXFLAGS) $< -o $@
+
+# Clean up all generated executables
+clean:
+	rm -f *.exe
+
+.PHONY: all clean
